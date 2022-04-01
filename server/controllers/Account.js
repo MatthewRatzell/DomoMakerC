@@ -1,16 +1,19 @@
 const models = require('../models');
 
 const { Account } = models;
+// every req creats a csrf token because set up combine with sessionkey
+const loginPage = (req, res) => {
+  res.render('login', { csrfToken: req.csrfToken() });
+};
 
-const loginPage = (req, res) => res.render('login');
-
-const signupPage = (req, res) => res.render('signup');
-
+const signupPage = (req, res) => {
+  res.render('signup', { csrfToken: req.csrfToken() });
+};
 const logout = (req, res) => {
-  //make sure we destroy mcookies on the schmove
+  // make sure we destroy mcookies on the schmove
   req.session.destroy();
   res.redirect('/');
-}
+};
 const login = (req, res) => {
   const username = `${req.body.username}`;
   const pass = `${req.body.pass}`;

@@ -6,7 +6,7 @@ const requiresLogin = (req, res, next) => {
 };
 
 const requiresLogout = (req, res, next) => {
-  if (!req.session.account) {
+  if (req.session.account) {
     return res.redirect('/maker');
   }
   return next();
@@ -22,7 +22,7 @@ const requiresSecure = (req, res, next) => {
 
 // if on local
 const bypassSecure = (req, res, next) => {
-  next();
+  return next();
 };
 
 module.exports.requiresLogin = requiresLogin;
